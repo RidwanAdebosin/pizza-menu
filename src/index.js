@@ -66,11 +66,28 @@ return (
 };
 
 const Menu = () => {
+  const pizzas = pizzaData;
   return (
   <main className="menu">
   <h2>Our Menu</h2>
-  <Pizza/>
+  <ul className="pizzas">
+  {pizzas.map((pizza) =>  
+    <Pizza name={pizza.name} ingredients={pizza.ingredients} photoName={pizza.photoName} price={pizza.price} key={pizza.name}/>
+  )}
+  </ul>
   </main>
+  )
+};
+
+
+const Pizza = ({name, ingredients, photoName, price}) => {
+  return(
+    <li className="pizza">
+        <img src={photoName} alt={photoName}/>
+        <h3>{name}</h3>
+        <p>{ingredients}</p>
+        <span>{price}</span>
+    </li>
   )
 };
 
@@ -81,29 +98,24 @@ const Footer = () => {
   const isOpen = hour >= openHour && hour <= closeHour;
   const isClose = hour <= openHour && hour >= closeHour;
 
-  // if(hour >= openHour && hour <= closeHour){
-  //   alert("We're Currently Open!!");
-  // } else {
-  //   alert("Sorry we're closed");
-  // }
 
 
-  return <footer> {new Date().toLocaleTimeString()}. {''}
-    We're currently open
+
+  return <footer className="footer"> 
+    {isOpen && 
+    (
+     <div className="order">
+    <p>We're open until {closeHour}:00. Come visit us or order online</p>
+    <button className="btn">Order</button>
+    </div>
+    )
+    }
   </footer>
 };
 
 
 
 
-const Pizza = () => {
-  return(
-    <>
-    <img src="pizzas/spinaci.jpg" alt="Pizza Spinaci"/>
-    <h2>Pizza</h2>
-    </>
-  )
-}
 
 
 
