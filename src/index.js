@@ -50,103 +50,70 @@ const pizzaData = [
 function App() {
   return (
     <div className="container">
-      <Header />
-      <Menu />
-      <Footer />
+     <Header/>
+     <Menu/>
+     <Footer/>
     </div>
   );
 }
 
-function Header() {
+const Header = () => {
+return (
+  <header className="header">
+    <h1 >Fast React Pizza Co.</h1>
+  </header>
+)
+};
+
+const Menu = () => {
   return (
-    <header className="header">
-      <h1>Fast React Pizza Co.</h1>
-    </header>
-  );
-}
+  <main className="menu">
+  <h2>Our Menu</h2>
+  <Pizza/>
+  </main>
+  )
+};
 
-function Menu() {
-  const pizzas = pizzaData;
-  // const pizzas = [];
-  const numPizzas = pizzas.length;
-
-  return (
-    <main className="menu">
-      <h2>Our Menu</h2>
-
-      {numPizzas > 0 ? (
-        <>
-          <p>
-            Authentic Italian cuisine. 6 creative dishes to choose from. All
-            from our stone oven, all organic, all delicious.
-          </p>
-          <ul className="pizzas">
-            {pizzas.map((pizza) => (
-              <Pizza pizzaObject={pizza} key={pizza.name} />
-            ))}
-          </ul>
-        </>
-      ) : (
-        <p>We're still working on our menu. Please come back later</p>
-      )}
-    </main>
-  );
-}
-
-function Pizza({ pizzaObject }) {
-  // if (pizzaObject.soldOut) return null;
-
-  return (
-    <li className={`pizza ${pizzaObject.soldOut ? "sold-out" : ""}`}>
-      <img src={pizzaObject.photoName} alt={pizzaObject.name} />
-      <div>
-        <h3>{pizzaObject.name}</h3>
-        <p>{pizzaObject.ingredients}</p>
-        {/* {pizzaObject.soldOut ? (
-          <span>SOLD OUT</span>
-        ) : (
-          <span>{pizzaObject.price}</span>
-        )} */}
-        <span>{pizzaObject.soldOut ? "S0LD OUT" : pizzaObject.price}</span>
-      </div>
-    </li>
-  );
-}
-
-function Footer() {
+const Footer = () => {
   const hour = new Date().getHours();
   const openHour = 12;
-  const closeHour = 24;
+  const closeHour = 22;
   const isOpen = hour >= openHour && hour <= closeHour;
-  // console.log(isOpen);
+  const isClose = hour <= openHour && hour >= closeHour;
 
-  //   if (hour >= openHour && hour <= closeHour) alert("We're currently open");
-  //   else alert("Sorry we're closed");
-  // if (!isOpen)
-  //   return <p>We are not Open yet come back when it's {openHour}:00</p>;
-  return (
-    <footer className="footer">
-      {isOpen ? (
-        <Order closeHour={closeHour} />
-      ) : (
-        <p> We are not Open yet come back when it's {openHour}:00</p>
-      )}
-    </footer>
-  );
+  // if(hour >= openHour && hour <= closeHour){
+  //   alert("We're Currently Open!!");
+  // } else {
+  //   alert("Sorry we're closed");
+  // }
+
+
+  return <footer> {new Date().toLocaleTimeString()}. {''}
+    We're currently open
+  </footer>
+};
+
+
+
+
+const Pizza = () => {
+  return(
+    <>
+    <img src="pizzas/spinaci.jpg" alt="Pizza Spinaci"/>
+    <h2>Pizza</h2>
+    </>
+  )
 }
 
-function Order({ closeHour }) {
-  return (
-    <div className="order">
-      <p>We're Open until {closeHour}:00. Come visit us or order online</p>
-      <button className="btn">Order</button>
-    </div>
-  );
-}
+
+
+
+
+
+
+
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
-root.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>
-);
+root.render(<React.StrictMode>
+  <App/>
+</React.StrictMode>);
